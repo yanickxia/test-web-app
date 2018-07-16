@@ -1,0 +1,12 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://106.75.216.40:8761/eureka/}
+server:
+  port: 10083
+spring:
+  application:
+    name: test-web
