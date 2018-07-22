@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLEncoder;
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -32,9 +34,9 @@ public class TestController {
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.parseMediaType(file.getContentType()));
         header.set(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=" + file.getOriginalFilename().replace(" ", "_"));
+                "attachment; filename=" + URLEncoder.encode(file.getOriginalFilename().replace(" ", "_"), "UTF-8"));
         header.setContentLength(documentBody.length);
 
-        return new HttpEntity<byte[]>(documentBody, header);
+        return new HttpEntity<>(documentBody, header);
     }
 }
