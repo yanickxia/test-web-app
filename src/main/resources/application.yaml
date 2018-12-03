@@ -6,6 +6,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URL:http://106.75.216.40:8761/eureka/}
+    enabled: false
 server:
   port: 10083
 spring:

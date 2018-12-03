@@ -33,6 +33,7 @@ public class TestController {
         return a + b;
     }
 
+
     @RequestMapping("/upload")
     public HttpEntity<byte[]> upload(@RequestParam("file") MultipartFile file) throws Exception {
 
@@ -69,5 +70,10 @@ public class TestController {
     @RequestMapping("/chinese-param")
     public String chinesePath(@RequestParam MultiValueMap<String, String> chineseParam) throws Exception {
         return objectMapper.writeValueAsString(chineseParam);
+    }
+
+    @RequestMapping("/exception")
+    public void exception() {
+        throw new RuntimeException();
     }
 }
