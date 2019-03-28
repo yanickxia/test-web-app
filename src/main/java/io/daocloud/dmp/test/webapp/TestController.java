@@ -1,6 +1,7 @@
 package io.daocloud.dmp.test.webapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/test")
@@ -76,4 +78,10 @@ public class TestController {
     public void exception() {
         throw new RuntimeException();
     }
+
+    @RequestMapping("/describe")
+    public Map<String, Object> describe(@RequestHeader HttpHeaders httpHeaders, @RequestBody String body, @RequestParam Map<String, String> allRequestParams) {
+        return ImmutableMap.of("headers", httpHeaders, "query", allRequestParams, "body", body);
+    }
+
 }
