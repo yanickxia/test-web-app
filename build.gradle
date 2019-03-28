@@ -4,9 +4,6 @@ buildscript {
     }
     repositories {
         maven {
-            url "https://mirrors.huaweicloud.com/repository/maven/"
-        }
-        maven {
             url "http://nexus.mschina.io/nexus/content/groups/public/"
         }
     }
@@ -25,9 +22,6 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    maven {
-        url "https://mirrors.huaweicloud.com/repository/maven/"
-    }
     maven {
         url "http://nexus.mschina.io/nexus/content/groups/public/"
     }
