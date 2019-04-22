@@ -6,10 +6,9 @@ ENV JAVA_OPTS ''
 
 WORKDIR /
 
-RUN cd /home/gradle/project \
-    && ls -l /
+RUN ls -l /
 
-ADD /home/gradle/project/build/libs/test-web-app-0.0.1-SNAPSHOT.jar /
+ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar /
 
 RUN ls -l /
 
