@@ -80,7 +80,8 @@ public class TestController {
     }
 
     @RequestMapping("/describe")
-    public Map<String, Object> describe(@RequestHeader HttpHeaders httpHeaders, @RequestBody String body, @RequestParam Map<String, String> allRequestParams) {
+    public Map<String, Object> describe(@RequestHeader HttpHeaders httpHeaders, @RequestBody(required = false) String body,
+                                        @RequestParam Map<String, String> allRequestParams) {
         Map<String, Object> map = new HashMap<>();
         map.put("headers", httpHeaders);
         map.put("query", allRequestParams);
