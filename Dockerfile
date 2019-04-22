@@ -6,9 +6,11 @@ ENV JAVA_OPTS ''
 
 WORKDIR /
 
-RUN ls -l
+RUN ls -l /
 
 ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar /
+
+RUN ls -l /
 
 EXPOSE 10083
 
