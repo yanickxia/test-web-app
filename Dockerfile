@@ -4,7 +4,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shangh
 
 ENV JAVA_OPTS ''
 
-WORKDIR /app
+RUN ls -l
 
 ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar .
 
