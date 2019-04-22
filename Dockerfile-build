@@ -1,0 +1,5 @@
+FROM gradle
+
+WORKDIR /app
+
+ENTRYPOINT gradle bJ

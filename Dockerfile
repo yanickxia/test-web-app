@@ -4,7 +4,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shangh
 
 ENV JAVA_OPTS ''
 
-WORKDIR /home/gradle/project
+WORKDIR /app
 
 RUN ls -l
 
