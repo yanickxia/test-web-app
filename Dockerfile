@@ -8,7 +8,7 @@ WORKDIR /
 
 RUN ls -l /
 
-ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar /
+ADD test-web-app-0.0.1-SNAPSHOT.jar /
 
 RUN ls -l /
 
