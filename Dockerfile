@@ -4,7 +4,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shangh
 
 ENV JAVA_OPTS ''
 
-RUN ls -l
+WORKDIR /home/gradle/project
 
 ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar .
 
