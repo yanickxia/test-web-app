@@ -4,7 +4,7 @@ buildscript {
     }
     repositories {
         maven {
-            url "http://nexus.mschina.io/nexus/content/groups/public/"
+            url "https://mirrors.huaweicloud.com/repository/maven/"
         }
     }
     dependencies {
