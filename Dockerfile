@@ -4,16 +4,10 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shangh
 
 ENV JAVA_OPTS ''
 
-WORKDIR /
+WORKDIR /app
 
-RUN echo $PWD
-
-RUN ls -l /
-
-ADD test-web-app-0.0.1-SNAPSHOT.jar /
-
-
+ADD build/libs/test-web-app-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 10083
 
-ENTRYPOINT java $JAVA_OPTS -jar /test-web-app-0.0.1-SNAPSHOT.jar
+ENTRYPOINT java $JAVA_OPTS -jar test-web-app-0.0.1-SNAPSHOT.jar
