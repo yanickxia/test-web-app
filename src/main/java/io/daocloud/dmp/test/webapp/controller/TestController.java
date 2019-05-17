@@ -1,13 +1,16 @@
-package io.daocloud.dmp.test.webapp;
+package io.daocloud.dmp.test.webapp.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,23 +28,25 @@ public class TestController {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @RequestMapping("/echo")
+    @PostMapping("/echo")
+    @ApiOperation(value = "echo input body", response = String.class)
     public String echo(@RequestBody String input) {
         return input;
     }
 
-    @RequestMapping("/add")
-    public Long add(@RequestParam("a") Long a, @RequestParam("b") Long b) {
+    @GetMapping("/add")
+    @ApiOperation(value = "calc a simple add", response = Long.class)
+    public Long add(@ApiParam(value = "number a", required = true) @RequestParam("a") Long a,
+                    @ApiParam(value = "number b", required = true) @RequestParam("b") Long b) {
         return a + b;
     }
 
 
-    @RequestMapping("/upload")
-    public HttpEntity<byte[]> upload(@RequestParam("file") MultipartFile file) throws Exception {
+    @PostMapping("/upload")
+    @ApiOperation(value = "echo upload file", notes = "test chinese encoding file body")
+    public HttpEntity<byte[]> upload(@ApiParam(value = "file", required = true) @RequestParam("file") MultipartFile file) throws Exception {
 
         byte[] documentBody = org.apache.commons.io.IOUtils.toByteArray(file.getInputStream());
-
-
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.parseMediaType(file.getContentType()));
         header.set(HttpHeaders.CONTENT_DISPOSITION,
@@ -51,7 +56,8 @@ public class TestController {
         return new HttpEntity<>(documentBody, header);
     }
 
-    @RequestMapping("/download")
+    @GetMapping("/download")
+    @ApiOperation(value = "download a file", notes = "test chinese encoding file body")
     public void downPhotoByStudentId(final HttpServletResponse response,
                                      @Value("classpath:一个文件.txt") Resource res) throws Exception {
         String fileName = "一个文件.txt";
@@ -69,24 +75,32 @@ public class TestController {
         outputStream.close();
     }
 
-    @RequestMapping("/chinese-param")
-    public String chinesePath(@RequestParam MultiValueMap<String, String> chineseParam) throws Exception {
-        return objectMapper.writeValueAsString(chineseParam);
-    }
-
-    @RequestMapping("/exception")
+    @GetMapping("/exception")
+    @ApiOperation(value = "just return a exception")
     public void exception() {
         throw new RuntimeException();
     }
 
-    @RequestMapping("/describe")
-    public Map<String, Object> describe(@RequestHeader HttpHeaders httpHeaders, @RequestBody(required = false) String body,
+    @RequestMapping(value = "/describe", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "describe your http request", notes = "这个接口没办法用Swagger解释，这个接口接受任何参数，请随意使用")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "any header value", value = "any header value", paramType = "header")
+    })
+    public Map<String, Object> describe(@RequestHeader HttpHeaders httpHeaders,
+                                        @RequestBody(required = false) String body,
                                         @RequestParam Map<String, String> allRequestParams) {
         Map<String, Object> map = new HashMap<>();
         map.put("headers", httpHeaders);
         map.put("query", allRequestParams);
         map.put("body", body);
         return map;
+    }
+
+    @GetMapping("/status_code")
+    @ApiOperation(value = "return a assign status code")
+    public void statusCode(final HttpServletResponse response,
+                           @ApiParam(value = "http code", required = true) @RequestParam("code") Integer code) {
+        response.setStatus(code);
     }
 
 }
