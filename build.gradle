@@ -34,9 +34,9 @@ ext {
 
 dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+    compile group: 'com.baomidou', name: 'mybatis-plus', version: '3.2.0'
+    compile group: 'com.github.pagehelper', name: 'pagehelper', version: '5.1.10'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
