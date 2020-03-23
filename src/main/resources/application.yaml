@@ -3,17 +3,11 @@ server:
 spring:
   application:
     name: test-web
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+  webflux:
+    static-path-pattern: /static/**
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    enabled: false
-  instance:
-    prefer-ip-address: true
-
-system:
-  pause: 0
+      defaultZone: ${EUREKA_URL:http://all-in-one-dev.dmptesting.xyz:8761/eureka/}
+    registry-fetch-interval-seconds: 5
+    enabled: ${EUREKA_ENABLE:true}

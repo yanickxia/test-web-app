@@ -1,6 +1,5 @@
 package io.daocloud.dmp.test.webapp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,21 +25,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/test")
 @CrossOrigin
 public class TestController {
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     private final static Logger LOGGER = LoggerFactory.getLogger(TestController.class);
-
-    @Value("${system.pause}")
-    private Integer pauseSec;
-
-    private final AtomicLong counter = new AtomicLong(0);
 
     @PostMapping("/echo")
     public String echo(@RequestBody String input) {
@@ -48,12 +38,7 @@ public class TestController {
     }
 
     @GetMapping("/add")
-    public Long add(@RequestParam("a") Long a,
-                    @RequestParam("b") Long b) throws InterruptedException {
-
-        LOGGER.info("calls {}", counter.incrementAndGet());
-        Thread.sleep(TimeUnit.SECONDS.toMillis(pauseSec));
-
+    public Long add(@RequestParam("a") Long a, @RequestParam("b") Long b) {
         return a + b;
     }
 
@@ -72,7 +57,7 @@ public class TestController {
     }
 
     @PostMapping("/custom-code")
-    public ResponseEntity upload(@RequestParam("code") Integer code) throws Exception {
+    public ResponseEntity upload(@RequestParam("code") Integer code) {
         return ResponseEntity.status(code).build();
     }
 

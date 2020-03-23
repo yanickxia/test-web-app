@@ -24,6 +24,19 @@ public class PerformanceController {
                 .map(__ -> getBody(size));
     }
 
+    @RequestMapping("/hello-world")
+    public Mono<String> hello(@PathVariable long delay) {
+        return Mono.just("hello, world");
+    }
+
+    @RequestMapping("/{delay}/hello-world")
+    public Mono<String> delayHello(@PathVariable long delay) {
+        return Mono
+                .just("")
+                .delayElement(Duration.of(delay, MILLIS))
+                .map(__ -> "hello world");
+    }
+
     private byte[] getBody(long size) {
         final String key = String.valueOf(size);
         if (BODY_CACHE.containsKey(key)) {

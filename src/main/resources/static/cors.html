@@ -1,0 +1,46 @@
+<html lang="zh">
+<head>
+    <title>test cors</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="result"></div>
+
+
+<script>
+    // $.post("http://10.10.30.51:31353/kuayu/project", function (data) {
+    //     $(".result").html(data);
+    // });
+
+    // $.ajax({
+    //     type: "POST",
+    //     beforeSend: function (request) {
+    //     },
+    //     url: "http://10.10.30.51:31353/kuayu/project",
+    //     data: JSON.stringify({}),
+    //     processData: false,
+    //     crossDomain: true,
+    // });
+
+
+    function getHello() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "http://10.8.1.15:9032/test-cors/test/describe", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            console.log(xhr);
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var responseText = xhr.responseText;
+                console.info(responseText);
+            }
+        };
+        xhr.send();
+    };
+
+    getHello();
+
+</script>
+
+</body>
+</html>
